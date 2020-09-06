@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Főoldal</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" th:src="@{/js/placetable.js}"></script>
@@ -39,7 +41,23 @@
 
         <div class="row" align="center">
             <div class="col">
-                <table id="placetable" class="table table-striped table-bordered" style="width:100%">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="/">Összes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#telefon">Telefon</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#email">Email</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#facebook">Facebook</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <table id="placetable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Név</th>
@@ -65,10 +83,10 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 
     </div>
-
 </body>
 </html>

@@ -43,6 +43,8 @@ public class DataProcessContact implements DataProcess {
 
     public void loadToDataBase(Person person) {
         try {
+
+            //TODO Place Constructor
             Place newPlace = new Place();
             Date syncDate = new Date(calendar.getTime().getTime());
 
