@@ -20,6 +20,16 @@ public class Place {
     private String source;
     private String type;
 
+    public Place() {}
+
+    public Place(String name, String phoneNumber, Date syncDate, String status, String source) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.syncDate = syncDate;
+        this.status = status;
+        this.source = source;
+    }
+
     public int getId() {
         return id;
     }
