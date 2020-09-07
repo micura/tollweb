@@ -19,7 +19,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactService {
     private static final String APPLICATION_NAME = "tollWeb";
@@ -46,7 +48,7 @@ public class ContactService {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public static List<Person> getContacts()
+    public static Set<Person> getContacts()
             throws Exception {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         PeopleService service = new PeopleService.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -59,7 +61,8 @@ public class ContactService {
                 .setPersonFields("names,phoneNumbers")
                 .execute();
 
-        List<Person> connections = response.getConnections();
+        List<Person> tempConnections = response.getConnections();
+        Set<Person> connections = new HashSet<Person>(tempConnections);
 
         return connections;
     }
