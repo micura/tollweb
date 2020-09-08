@@ -56,8 +56,10 @@ public class ContactService {
                 .build();
 
         // Request all connections.
-        ListConnectionsResponse response = service.people().connections()
-                .list("people/me")
+        ListConnectionsResponse response = service
+                .people()
+                .connections()
+                .list("people/me").setPageSize(300)
                 .setPersonFields("names,phoneNumbers")
                 .execute();
 
