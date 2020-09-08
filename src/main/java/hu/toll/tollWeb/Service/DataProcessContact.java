@@ -35,12 +35,31 @@ public class DataProcessContact implements DataProcess {
         }
     }
 
-    public boolean checkExists(Person person) {
-        Place placeCheck = placeRepo.findPlaceByPhoneNumber(person.getPhoneNumbers().get(0).getValue());
-        if (placeCheck != null) {
+    public boolean checkExistsOnDatabase(Person person) {
+        Place checkedPlace = placeRepo.findPlaceByPhoneNumber(person.getPhoneNumbers().get(0).getValue());
+        if (checkedPlace != null) {
             return true;
         }
         return false;
+    }
+
+    public void isDeactivateContact(Place checkedContact, Set<Person> placesOnPhone) {
+        int counter = 0;
+        for (Person phonePlace: placesOnPhone) {
+            counter++;
+
+            if (phonePlace.getPhoneNumbers().get(0).getValue().equals(checkedContact.getPhoneNumber())) {
+                break;
+            }
+
+            if (counter == placesOnPhone.size()) {
+                System.out.println("A " + checkedContact.getName() + " kontakt inaktiválva lett");
+
+                //Ezt már az adatbázisban kell módosítani!! NOT WORK!
+                //TODO EDIT ROW IN DATABASE
+                checkedContact.setStatus("Inaktív");
+            }
+        }
     }
 
     @Override
@@ -48,7 +67,7 @@ public class DataProcessContact implements DataProcess {
         Set<Person> placesOnPhone = ContactService.getContacts();
         if (placesOnPhone != null && placesOnPhone.size() > 0) {
             for (Person person : placesOnPhone) {
-                if (checkExists(person) == false) {
+                if (checkExistsOnDatabase(person) == false) {
                     loadToDataBase(person);
                     System.out.println(person.getNames().get(0).getDisplayName() + "-->" + person.getPhoneNumbers().get(0).getValue() +
                             " kontakt bekerült az adatbázisba.");
@@ -58,10 +77,13 @@ public class DataProcessContact implements DataProcess {
                             " telefonszám már létezik az adatbázisban!");
                 }
             }
-            List<Place> placesOnDatabase = placeRepo.findAll();
-            placesOnDatabase.retainAll(placesOnPhone);
         } else {
             System.out.println("No connections found.");
+        }
+
+        List<Place> placesOnDatabase = placeRepo.findAll();
+        for (Place checkedContact: placesOnDatabase) {
+            isDeactivateContact(checkedContact, placesOnPhone);
         }
     }
 }
