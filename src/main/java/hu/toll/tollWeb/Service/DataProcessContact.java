@@ -54,13 +54,12 @@ public class DataProcessContact implements DataProcess {
 
             if (counter == placesOnPhone.size()) {
                 System.out.println("A " + checkedContact.getName() + " kontakt inaktiválva lett");
-
-                //Ezt már az adatbázisban kell módosítani!! NOT WORK!
-                //TODO EDIT ROW IN DATABASE
                 checkedContact.setStatus("Inaktív");
+                placeRepo.save(checkedContact);
             }
         }
     }
+
 
     @Override
     public void process() throws Exception {
