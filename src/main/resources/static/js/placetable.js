@@ -1,20 +1,39 @@
+/*
 $(document).ready(function() {
-    $('#placetable').DataTable({
+    $('#activePlaceTable').DataTable({
         "order": [[ 4, "desc" ]],
         "paging": false,
     }).draw();
 } );
 
+
 $(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $('#placetable').DataTable({
-            "columnDefs": [
-                { "width": "30%", "targets": 1 }
-            ]}
-        )
+    $(".nav-tabs a").click(function(e){
+        $('#activePlaceTable').DataTable()
         .columns(6) //Where?
-        .search($(this).text())
+        .search($(e.target).text())
         .draw();
-        //console.log($(this).text());
     });
-});
+})
+ */
+
+$(document).ready(function() {
+    $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+    } );
+
+    $('#activePlaceTable').DataTable( {
+        "order": [[ 4, "desc" ]],
+        "paging": false,
+    }).columns(5)
+        .search('Aktív')
+        .draw();
+
+    // Apply a search to the second table for the demo
+    $('#inactivePlaceTable').DataTable({
+        "order": [[ 4, "desc" ]],
+        "paging": false,
+    }).columns(5)
+        .search('Törölve')
+        .draw();
+} );

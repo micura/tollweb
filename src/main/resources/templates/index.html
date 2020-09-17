@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" th:src="@{/js/placetable.js}"></script>
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -44,6 +44,16 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tab-table1">Aktív</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-table2">Inaktív</a>
+                    </li>
+                </ul>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="/">Összes</a>
                     </li>
                     <li class="nav-item">
@@ -56,8 +66,10 @@
                         <a class="nav-link" data-toggle="tab" href="#facebook">Facebook</a>
                     </li>
                 </ul>
+
                 <div class="tab-content">
-                    <table id="placetable" class="table table-striped table-bordered" style="width:100%">
+                    <div class="tab-pane active" id="tab-table1">
+                        <table id="activePlaceTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Név</th>
@@ -83,6 +95,36 @@
                         </tr>
                     </tbody>
                 </table>
+                    </div>
+
+                    <div class="tab-pane" id="tab-table2">
+                        <table id="inactivePlaceTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Név</th>
+                                <th>Város</th>
+                                <th>Telefonszám</th>
+                                <th>Mennyiség</th>
+                                <th>Dátum</th>
+                                <th>Státusz</th>
+                                <th>Forrás</th>
+                                <th>Típus</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="place : ${places}">
+                                <td th:text="${place.getName()}"></td>
+                                <td th:text="${place.getCity()}"></td>
+                                <td th:text="${place.getPhoneNumber()}"></td>
+                                <td th:text="${place.getAmount()}"></td>
+                                <td th:text="${place.getSyncDate()}"></td>
+                                <td th:text="${place.getStatus()}"></td>
+                                <td th:text="${place.getSource()}"></td>
+                                <td th:text="${place.getType()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

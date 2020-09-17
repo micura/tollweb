@@ -53,8 +53,8 @@ public class DataProcessContact implements DataProcess {
             }
 
             if (counter == placesOnPhone.size()) {
-                System.out.println("A " + checkedContact.getName() + " kontakt inaktiválva lett");
-                checkedContact.setStatus("Inaktív");
+                System.out.println("A " + checkedContact.getName() + " kontakt törölve lett");
+                checkedContact.setStatus("Törölve");
                 placeRepo.save(checkedContact);
             }
         }
