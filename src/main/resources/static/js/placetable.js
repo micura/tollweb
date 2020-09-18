@@ -1,21 +1,22 @@
-/*
-$(document).ready(function() {
-    $('#activePlaceTable').DataTable({
-        "order": [[ 4, "desc" ]],
-        "paging": false,
-    }).draw();
-} );
-
-
 $(document).ready(function(){
-    $(".nav-tabs a").click(function(e){
+    $(".searchable-tab a").click(function(e){
+        let filteredText = $(e.target).text();
+
+        if (filteredText == 'Összes') {
+            filteredText = '';
+        }
+
         $('#activePlaceTable').DataTable()
-        .columns(6) //Where?
-        .search($(e.target).text())
-        .draw();
+            .columns(6) //Where?
+            .search(filteredText)
+            .draw();
+
+        $('#inactivePlaceTable').DataTable()
+            .columns(6) //Where?
+            .search(filteredText)
+            .draw()
     });
 })
- */
 
 $(document).ready(function() {
     $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
