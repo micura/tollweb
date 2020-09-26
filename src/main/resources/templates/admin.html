@@ -40,6 +40,12 @@
             </div>
         </div>
 
+        <div class="row">
+            <form action="#" data-th-action="@{/action}" method="post">
+                <button type="submit" class="btn btn-info" value="update">Telefon kontaktok frissítése</button>
+            </form>
+        </div>
+
         <div class="row" align="center">
             <div class="col">
                 <!-- Nav tabs -->
@@ -85,7 +91,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="place : ${places}" th:id="${place.getId()}">
+                            <tr th:each="place : ${places}" th:id="${'row' + place.getId()}">
                                 <td th:text="${place.getName()}"></td>
                                 <td th:text="${place.getCity()}"></td>
                                 <td th:text="${place.getPhoneNumber()}"></td>
@@ -95,8 +101,9 @@
                                 <td th:text="${place.getSource()}"></td>
                                 <td th:text="${place.getType()}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('${place.getId()}')|" >Szerkesztés</button>
+                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('row${place.getId()}')|" >Szerkesztés</button>
                                 </td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -118,7 +125,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="place : ${places}" th:id="${place.getId()}">
+                            <tr th:each="place : ${places}" th:id="${'row' + place.getId()}">
                                 <td th:text="${place.getName()}"></td>
                                 <td th:text="${place.getCity()}"></td>
                                 <td th:text="${place.getPhoneNumber()}"></td>
@@ -128,7 +135,7 @@
                                 <td th:text="${place.getSource()}"></td>
                                 <td th:text="${place.getType()}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('${place.getId()}')|" >Szerkesztés</button>
+                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('row${place.getId()}')|" >Szerkesztés</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -138,27 +145,37 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 <script>
     function editRow(id) {
-        let row = document.getElementById(id);
-        let rowElements = row.getElementsByTagName("td");
+        let originalContent = document.getElementById(id).innerHTML;
+        let rowElements = document.getElementById(id).getElementsByTagName("td");
 
-        document.getElementById(id).innerHTML =
-            "<td> <input type='text' value='" + rowElements[0].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[1].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[2].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[3].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[4].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[5].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[6].textContent + "'></input></td>" +
-            "<td> <input type='text' value='" + rowElements[7].textContent + "'></input></td>" +
-            "<td>" +
-                "<button type='button' class='btn btn-primary'>Mentés</button>" +
-                "<button type='button' class='btn btn-primary'>Mégse</button>" +
-            "</td>";
+        var i;
+        for (i = 0; i < rowElements.length - 1; i++) {
+            var inputNode = document.createElement("input");
+            inputNode.value = rowElements[i].textContent;
+
+            rowElements[i].innerHTML = "";
+            rowElements[i].appendChild(inputNode);
+        }
+
+        var saveButton = document.createElement("button");
+        saveButton.className = "btn btn-primary btn-sm";
+        saveButton.setAttribute('onclick', "saveAction()");
+        saveButton.innerHTML = "Mentés";
+        var cancelButton = document.createElement("button");
+        cancelButton.className = "btn btn-primary btn-sm";
+
+        cancelButton.addEventListener("click", function(){
+            document.getElementById(id).innerHTML = originalContent;
+        });
+        cancelButton.innerHTML = "Mégse";
+
+        rowElements[rowElements.length - 1].innerHTML = "";
+        rowElements[rowElements.length - 1].appendChild(saveButton);
+        rowElements[rowElements.length - 1].appendChild(cancelButton);
     }
 </script>
 </body>
