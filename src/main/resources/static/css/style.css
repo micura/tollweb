@@ -1,3 +1,13 @@
 input {
     width: 100%;
 }
+
+/* Set the size of the div element that contains the map */
+#map {
+    height: 92vh;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
+
+.navbar {
+    height: 8vh;
+}

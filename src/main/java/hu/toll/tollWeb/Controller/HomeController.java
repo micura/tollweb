@@ -34,6 +34,11 @@ public class HomeController {
         return "admin";
     }
 
+    @RequestMapping("/map")
+    public String map() {
+        return "map";
+    }
+
     @RequestMapping(value = "/saveplace", method = RequestMethod.POST)
     public String savePlace(@RequestBody Place place) {
         placeService.save(place);
