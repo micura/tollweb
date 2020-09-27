@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
     <title>Admin page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
@@ -86,12 +87,11 @@
                                 <th>Dátum</th>
                                 <th>Státusz</th>
                                 <th>Forrás</th>
-                                <th>Típus
                                 <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="place : ${places}" th:id="${'row' + place.getId()}">
+                            <tr th:each="place : ${places}" th:id="${place.getId()}">
                                 <td th:text="${place.getName()}"></td>
                                 <td th:text="${place.getCity()}"></td>
                                 <td th:text="${place.getPhoneNumber()}"></td>
@@ -99,9 +99,8 @@
                                 <td th:text="${place.getSyncDate()}"></td>
                                 <td th:text="${place.getStatus()}"></td>
                                 <td th:text="${place.getSource()}"></td>
-                                <td th:text="${place.getType()}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('row${place.getId()}')|" >Szerkesztés</button>
+                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('${place.getId()}')|" >Szerkesztés</button>
                                 </td>
 
                             </tr>
@@ -120,12 +119,11 @@
                                 <th>Dátum</th>
                                 <th>Státusz</th>
                                 <th>Forrás</th>
-                                <th>Típus</th>
                                 <th>#</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="place : ${places}" th:id="${'row' + place.getId()}">
+                            <tr th:each="place : ${places}" th:id="${place.getId()}">
                                 <td th:text="${place.getName()}"></td>
                                 <td th:text="${place.getCity()}"></td>
                                 <td th:text="${place.getPhoneNumber()}"></td>
@@ -133,9 +131,8 @@
                                 <td th:text="${place.getSyncDate()}"></td>
                                 <td th:text="${place.getStatus()}"></td>
                                 <td th:text="${place.getSource()}"></td>
-                                <td th:text="${place.getType()}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('row${place.getId()}')|" >Szerkesztés</button>
+                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('${place.getId()}')|" >Szerkesztés</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -155,7 +152,9 @@
         var i;
         for (i = 0; i < rowElements.length - 1; i++) {
             var inputNode = document.createElement("input");
+            inputNode.type = "text";
             inputNode.value = rowElements[i].textContent;
+            inputNode.id = id + '_' + i;
 
             rowElements[i].innerHTML = "";
             rowElements[i].appendChild(inputNode);
@@ -163,8 +162,34 @@
 
         var saveButton = document.createElement("button");
         saveButton.className = "btn btn-primary btn-sm";
-        saveButton.setAttribute('onclick', "saveAction()");
+        saveButton.addEventListener("click", function() {
+            var place = {
+                id: id,
+                name: document.getElementById(id + '_0').value,
+                city: document.getElementById(id + '_1').value,
+                amount: document.getElementById(id + '_3').value,
+                phoneNumber: document.getElementById(id + '_2').value,
+                syncDate: document.getElementById(id + '_4').value,
+                status: document.getElementById(id + '_5').value,
+                source: document.getElementById(id + '_6').value,
+            };
+
+            console.log(place);
+
+            var token = $("meta[name='_csrf']").attr("content");
+            $.ajax({
+                url : '/saveplace', // url to make request
+                headers: {"X-CSRF-TOKEN": token}, //send CSRF token in header
+                contentType: "application/json",
+                type : 'POST',
+                data: JSON.stringify(place),
+                success: function(){
+                    location.reload();
+                }
+            });
+        });
         saveButton.innerHTML = "Mentés";
+
         var cancelButton = document.createElement("button");
         cancelButton.className = "btn btn-primary btn-sm";
 
@@ -176,6 +201,12 @@
         rowElements[rowElements.length - 1].innerHTML = "";
         rowElements[rowElements.length - 1].appendChild(saveButton);
         rowElements[rowElements.length - 1].appendChild(cancelButton);
+    }
+
+    function saveAction(id) {
+        console.log(id);
+        let teszt = document.getElementById(id);
+        console.log(teszt);
     }
 </script>
 </body>

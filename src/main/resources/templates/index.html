@@ -4,6 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
     <title>Főoldal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
@@ -79,7 +80,6 @@
                             <th>Dátum</th>
                             <th>Státusz</th>
                             <th>Forrás</th>
-                            <th>Típus</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,7 +91,6 @@
                             <td th:text="${place.getSyncDate()}"></td>
                             <td th:text="${place.getStatus()}"></td>
                             <td th:text="${place.getSource()}"></td>
-                            <td th:text="${place.getType()}"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -108,7 +107,6 @@
                                 <th>Dátum</th>
                                 <th>Státusz</th>
                                 <th>Forrás</th>
-                                <th>Típus</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -120,7 +118,6 @@
                                 <td th:text="${place.getSyncDate()}"></td>
                                 <td th:text="${place.getStatus()}"></td>
                                 <td th:text="${place.getSource()}"></td>
-                                <td th:text="${place.getType()}"></td>
                             </tr>
                             </tbody>
                         </table>

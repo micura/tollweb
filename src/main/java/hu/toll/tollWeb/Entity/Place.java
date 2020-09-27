@@ -18,7 +18,6 @@ public class Place {
     private Date syncDate;
     private String status;
     private String source;
-    private String type;
 
     public Place() {}
 
@@ -62,10 +61,6 @@ public class Place {
         return source;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -96,9 +91,5 @@ public class Place {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

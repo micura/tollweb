@@ -1,13 +1,17 @@
 package hu.toll.tollWeb.Controller;
 
+import hu.toll.tollWeb.Entity.Place;
 import hu.toll.tollWeb.Service.PlaceService;
 import hu.toll.tollWeb.ServiceInterfaces.DataProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class HomeController {
@@ -30,9 +34,15 @@ public class HomeController {
         return "admin";
     }
 
-    @RequestMapping(value="/action", method= RequestMethod.POST)
-    public String onClickAction() throws Exception {
+    @RequestMapping(value = "/saveplace", method = RequestMethod.POST)
+    public String savePlace(@RequestBody Place place) {
+        placeService.save(place);
+        return "admin";
+    }
+
+    @RequestMapping(value = "/action", method = RequestMethod.POST)
+    public RedirectView phoneContactUpdate() throws Exception {
         dataProcess.process();
-        return "index";
+        return new RedirectView("admin");
     }
 }

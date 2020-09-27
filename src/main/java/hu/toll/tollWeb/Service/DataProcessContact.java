@@ -80,7 +80,7 @@ public class DataProcessContact implements DataProcess {
             System.out.println("No connections found.");
         }
 
-        List<Place> placesOnDatabase = placeRepo.findAll();
+        List<Place> placesOnDatabase = placeRepo.findByStatus("Aktív");
         for (Place checkedContact: placesOnDatabase) {
             isDeactivateContact(checkedContact, placesOnPhone);
         }
