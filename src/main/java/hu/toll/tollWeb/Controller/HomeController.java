@@ -24,18 +24,20 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        model.addAttribute("places", placeService.getPlaces());
+        //model.addAttribute("places", placeService.getPlaces());
         return "index";
     }
 
     @RequestMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("places", placeService.getPlaces());
+        //model.addAttribute("places", placeService.getPlaces());
         return "admin";
     }
 
     @RequestMapping("/map")
-    public String map() {
+    public String map(Model model) {
+        //model.addAttribute("locations", placeService.getPlaces());
+        //System.out.println(placeService.findActiveCities("Aktív"));
         return "map";
     }
 

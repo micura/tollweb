@@ -19,4 +19,8 @@ public class PlaceService {
     public void save(Place place) {
         placeRepo.save(place);
     }
+
+    public List<String> findActiveCities(String status) {
+        return placeRepo.findCitiesByStatus(status);
+    }
 }
