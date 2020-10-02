@@ -26,6 +26,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
             .inMemoryAuthentication()
             .passwordEncoder(NoOpPasswordEncoder.getInstance())
             .withUser("admin").password("pass").roles("ADMIN").and()
-            .withUser("user").password("pass").roles("USER");
+            .withUser("user").password("pass").roles("USER").and()
+            .withUser("micura2").password("pass").roles("USER");
     }
 }

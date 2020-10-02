@@ -7,12 +7,17 @@ $(document).ready(function(){
         }
 
         $('#activePlaceTable').DataTable()
-            .columns(6) //Where?
+            .columns(6)
             .search(filteredText)
             .draw();
 
         $('#inactivePlaceTable').DataTable()
-            .columns(6) //Where?
+            .columns(6)
+            .search(filteredText)
+            .draw()
+
+        $('#personalPlaceTable').DataTable()
+            .columns(6)
             .search(filteredText)
             .draw()
     });
@@ -36,6 +41,13 @@ $(document).ready(function() {
         "paging": false,
     }).columns(5)
         .search('Törölve')
+        .draw();
+
+    $('#personalPlaceTable').DataTable({
+        "order": [[ 4, "desc" ]],
+        "paging": false,
+    }).columns(5)
+        .search('Személyes')
         .draw();
 } );
 

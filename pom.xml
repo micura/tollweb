@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tollWeb</name>
 	<description>TollWeb for easy work.</description>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" th:src="@{/js/placetable.js}"></script>
@@ -70,6 +70,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#tab-table2">Inaktív</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tab-table3">Személyes</a>
                     </li>
                 </ul>
 
@@ -153,6 +156,39 @@
 
                         </table>
                     </div>
+
+                    <div class="tab-pane" id="tab-table3">
+                        <table id="personalPlaceTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Név</th>
+                                <th>Város</th>
+                                <th>Telefonszám</th>
+                                <th>Mennyiség</th>
+                                <th>Dátum</th>
+                                <th>Státusz</th>
+                                <th>Forrás</th>
+                                <th>#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="place : ${places}" th:id="${place.getId()}">
+                                <td th:text="${place.getName()}"></td>
+                                <td th:text="${place.getCity()}"></td>
+                                <td th:text="${place.getPhoneNumber()}"></td>
+                                <td th:text="${place.getAmount()}"></td>
+                                <td th:text="${place.getSyncDate()}"></td>
+                                <td th:text="${place.getStatus()}"></td>
+                                <td th:text="${place.getSource()}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" th:attr="onclick=|editRow('${place.getId()}')|" >Szerkesztés</button>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -164,7 +200,7 @@
         let rowElements = document.getElementById(id).getElementsByTagName("td");
 
         var i;
-        for (i = 0; i < rowElements.length - 1; i++) {
+        for (i = 0; i < rowElements.length - 3; i++) {
             var inputNode = document.createElement("input");
             inputNode.type = "text";
             inputNode.value = rowElements[i].textContent;
@@ -174,6 +210,45 @@
             rowElements[i].appendChild(inputNode);
         }
 
+        var selectStatusNode = document.createElement("select");
+        selectStatusNode.id = id + "_5"
+        var firstStatusOption = document.createElement("option");
+        firstStatusOption.innerText = "Aktív";
+        firstStatusOption.value = "Aktív"
+        var secondStatusOption = document.createElement("option");
+        secondStatusOption.innerText = "Törölve";
+        secondStatusOption.value = "Törölve";
+        var thirdstatusOption = document.createElement("option");
+        thirdstatusOption.innerText = "Személyes";
+        thirdstatusOption.value = "Személyes";
+
+        selectStatusNode.appendChild(firstStatusOption);
+        selectStatusNode.appendChild(secondStatusOption);
+        selectStatusNode.appendChild(thirdstatusOption);
+
+        rowElements[5].innerHTML = "";
+        rowElements[5].appendChild(selectStatusNode);
+
+        var selectSourceNode = document.createElement("select");
+        selectSourceNode.id = id + "_6"
+        var firstSourceOption = document.createElement("option");
+        firstSourceOption.innerText = "Telefon";
+        firstSourceOption.value = "Telefon";
+        var secondSourceOption = document.createElement("option");
+        secondSourceOption.innerText = "Facebook";
+        secondSourceOption.value = "Facebook";
+        var thirdSourceOption = document.createElement("option");
+        thirdSourceOption.innerText = "Email";
+        thirdSourceOption.value = "Email";
+
+        selectSourceNode.appendChild(firstSourceOption);
+        selectSourceNode.appendChild(secondSourceOption);
+        selectSourceNode.appendChild(thirdSourceOption);
+
+        rowElements[6].innerHTML = "";
+        rowElements[6].appendChild(selectSourceNode);
+
+        //Crete save button!
         var saveButton = document.createElement("button");
         saveButton.className = "btn btn-primary btn-sm";
         saveButton.addEventListener("click", function() {
@@ -194,16 +269,15 @@
                 headers: {"X-CSRF-TOKEN": token}, //send CSRF token in header
                 contentType: "application/json",
                 type : 'POST',
-                data: JSON.stringify(place)
-                /*
+                data: JSON.stringify(place),
                 success: function(){
                     location.reload();
                 }
-                 */
             });
         });
         saveButton.innerHTML = "Mentés";
 
+        //Crete cancel button!
         var cancelButton = document.createElement("button");
         cancelButton.className = "btn btn-primary btn-sm";
 
@@ -212,9 +286,9 @@
         });
         cancelButton.innerHTML = "Mégse";
 
-        rowElements[rowElements.length - 1].innerHTML = "";
-        rowElements[rowElements.length - 1].appendChild(saveButton);
-        rowElements[rowElements.length - 1].appendChild(cancelButton);
+        rowElements[7].innerHTML = "";
+        rowElements[7].appendChild(saveButton);
+        rowElements[7].appendChild(cancelButton);
     }
 </script>
 </body>
