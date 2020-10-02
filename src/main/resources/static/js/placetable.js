@@ -30,7 +30,7 @@ $(document).ready(function() {
         .search('Aktív')
         .draw();
 
-    // Apply a search to the second table for the demo
+    // Apply a search to the second table
     $('#inactivePlaceTable').DataTable({
         "order": [[ 4, "desc" ]],
         "paging": false,
@@ -38,3 +38,30 @@ $(document).ready(function() {
         .search('Törölve')
         .draw();
 } );
+
+$(document).ready(function(){
+    $(".show-btn").click(function(){
+        $(".new-contact").toggle();
+    });
+});
+
+function insertNewPlace() {
+    var newPlace = {
+        name: document.getElementById("name").value,
+        city: document.getElementById("city").value,
+        amount: document.getElementById("amount").value,
+        phoneNumber: document.getElementById("phoneNumber").value,
+        syncDate: document.getElementById("date").value,
+        status: "Aktív",
+        source: document.getElementById("source").value
+    };
+
+    var token = $("meta[name='_csrf']").attr("content");
+    $.ajax({
+        url : '/saveplace', // url to make request
+        headers: {"X-CSRF-TOKEN": token}, //send CSRF token in header
+        contentType: "application/json",
+        type : 'POST',
+        data: JSON.stringify(newPlace),
+    });
+}

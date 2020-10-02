@@ -12,8 +12,9 @@ import java.util.List;
 public interface PlaceRepository extends CrudRepository<Place, Long> {
     List<Place> findAll();
     Place findPlaceByPhoneNumber(String value);
-    List<Place> findByStatus(String status);
 
+    @Query("SELECT p FROM Place p WHERE p.source =?1 and p.status=?2")
+    List<Place> findPlacesBySourceAndStatus(String source, String status);
 
     @Query(value = "SELECT city FROM place WHERE status=?1", nativeQuery = true)
     public List<String> findCitiesByStatus(String status);

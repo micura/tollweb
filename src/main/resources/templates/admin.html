@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" th:src="@{/js/placetable.js}"></script>
@@ -34,19 +34,34 @@
     </nav>
 
     <div class="container">
-        <div class="row" align="center">
-            <div class="col">
-                <h1 class="display-1">TollWeb</h1>
+        <div class="d-flex justify-content-center">
+            <h1 class="display-1">TollWeb</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="p-2">
+                <form data-th-action="@{/action}" method="post">
+                    <button type="submit" class="btn btn-info" value="update">Telefon kontaktok frissítése</button>
+                </form>
+            </div>
+            <div class="p-2">
+                <button type="submit" class="btn btn-info show-btn" value="update">Új kontakt felvétele</button>
             </div>
         </div>
+        <form class="row new-contact m-3" style="display: none;">
+            <input type="text" id="name" required class="col mr-2" placeholder="Név">
+            <input type="text" id="city" required class="col mr-2" placeholder="Város">
+            <input type="text" id="phoneNumber" required class="col mr-2" placeholder="Telefonszám">
+            <input type="text" id="amount" required class="col mr-2" placeholder="Mennyiség">
+            <input type="date" id="date" required class="col mr-2" placeholder="Dátum">
+            <select class="col mr-2" id="source">
+                <option value="Facebook">Facebook</option>
+                <option value="Email">Email</option>
+                <option value="Telefon">Telefon</option>
+            </select>
+            <button onclick="insertNewPlace()" class="btn btn-info">Mentés</button>
+        </form>
 
         <div class="row">
-            <form action="#" data-th-action="@{/action}" method="post">
-                <button type="submit" class="btn btn-info" value="update">Telefon kontaktok frissítése</button>
-            </form>
-        </div>
-
-        <div class="row" align="center">
             <div class="col">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
@@ -173,18 +188,18 @@
                 source: document.getElementById(id + '_6').value,
             };
 
-            console.log(place);
-
             var token = $("meta[name='_csrf']").attr("content");
             $.ajax({
                 url : '/saveplace', // url to make request
                 headers: {"X-CSRF-TOKEN": token}, //send CSRF token in header
                 contentType: "application/json",
                 type : 'POST',
-                data: JSON.stringify(place),
+                data: JSON.stringify(place)
+                /*
                 success: function(){
                     location.reload();
                 }
+                 */
             });
         });
         saveButton.innerHTML = "Mentés";
@@ -200,12 +215,6 @@
         rowElements[rowElements.length - 1].innerHTML = "";
         rowElements[rowElements.length - 1].appendChild(saveButton);
         rowElements[rowElements.length - 1].appendChild(cancelButton);
-    }
-
-    function saveAction(id) {
-        console.log(id);
-        let teszt = document.getElementById(id);
-        console.log(teszt);
     }
 </script>
 </body>

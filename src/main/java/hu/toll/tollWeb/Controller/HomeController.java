@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,27 +25,29 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        //model.addAttribute("places", placeService.getPlaces());
+        model.addAttribute("places", placeService.getPlaces());
         return "index";
     }
 
     @RequestMapping("/admin")
     public String admin(Model model) {
-        //model.addAttribute("places", placeService.getPlaces());
+        model.addAttribute("places", placeService.getPlaces());
         return "admin";
     }
 
     @RequestMapping("/map")
     public String map(Model model) {
-        //model.addAttribute("locations", placeService.getPlaces());
+        model.addAttribute("locations", placeService.getPlaces());
         //System.out.println(placeService.findActiveCities("Aktív"));
         return "map";
     }
 
     @RequestMapping(value = "/saveplace", method = RequestMethod.POST)
-    public String savePlace(@RequestBody Place place) {
+    public RedirectView savePlace(@RequestBody Place place) {
         placeService.save(place);
-        return "admin";
+
+        //TODO Exist Contact problem
+        return new RedirectView("admin");
     }
 
     @RequestMapping(value = "/action", method = RequestMethod.POST)

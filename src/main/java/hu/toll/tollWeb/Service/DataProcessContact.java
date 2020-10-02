@@ -71,7 +71,6 @@ public class DataProcessContact implements DataProcess {
                     System.out.println(person.getNames().get(0).getDisplayName() + "-->" + person.getPhoneNumbers().get(0).getValue() +
                             " kontakt bekerült az adatbázisba.");
                 } else {
-                    //Ha a kontakt már létezik az adatbázisban
                     System.out.println(person.getNames().get(0).getDisplayName() + " kontakthoz tartozó " + person.getPhoneNumbers().get(0).getValue() +
                             " telefonszám már létezik az adatbázisban!");
                 }
@@ -80,8 +79,9 @@ public class DataProcessContact implements DataProcess {
             System.out.println("No connections found.");
         }
 
-        List<Place> placesOnDatabase = placeRepo.findByStatus("Aktív");
-        for (Place checkedContact: placesOnDatabase) {
+        List<Place> activePhonePlacesOnDatabase = placeRepo.findPlacesBySourceAndStatus("Telefon", "Aktív");
+
+        for (Place checkedContact: activePhonePlacesOnDatabase) {
             isDeactivateContact(checkedContact, placesOnPhone);
         }
     }
