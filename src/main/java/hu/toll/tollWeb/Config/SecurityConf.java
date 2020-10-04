@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -19,13 +17,14 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
         auth
             .inMemoryAuthentication()
             .passwordEncoder(passwordEncoder())
             .withUser("admin").password("$2a$10$VZxD0gqknDDuX5ZuyscX/OOBMD1YzXEzA4Le4tCLaAEouskvujBre").roles("ADMIN").and()
-            .withUser("user").password("$2a$10$S1kxoZIuj7u/FN86rZK4Z.AgUL1byzP1rgkmb9/ccSfjH1qtVQrie").roles("USER").and()
-            .withUser("micura2").password("$2a$10$ctJAe1dnVWsQOf4T694yWOKfaXAEt7SWsqSitV.N8ho.2AIk/Oh06").roles("USER");
+            .withUser("milan").password("$2a$10$TTGm5LqinUrUFXn2gUNjje5CmOhFDH/8D6tcyuETm/3/3ZkDKHQxW").roles("USER").and()
+            .withUser("micura2").password("$2a$10$bLy9ClDEkb3WeRduU.WPMOMmXuVsFJFLOwRwrE0wXCgnPG7wbUUG.").roles("USER");
     }
 }

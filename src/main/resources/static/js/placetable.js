@@ -25,12 +25,16 @@ $(document).ready(function(){
 
 $(document).ready(function() {
     $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+        $.fn.dataTable.tables( {
+            visible: true,
+            api: true,
+        } ).columns.adjust();
     } );
 
     $('#activePlaceTable').DataTable( {
         "order": [[ 4, "desc" ]],
         "paging": false,
+        responsive: true
     }).columns(5)
         .search('Aktív')
         .draw();
@@ -39,6 +43,7 @@ $(document).ready(function() {
     $('#inactivePlaceTable').DataTable({
         "order": [[ 4, "desc" ]],
         "paging": false,
+        responsive: true
     }).columns(5)
         .search('Törölve')
         .draw();
@@ -46,6 +51,7 @@ $(document).ready(function() {
     $('#personalPlaceTable').DataTable({
         "order": [[ 4, "desc" ]],
         "paging": false,
+        responsive: true
     }).columns(5)
         .search('Személyes')
         .draw();
