@@ -35,7 +35,7 @@ build/
 conts
 tollfelvasarlas
 people
-dockerhez
+dockerhez.txt
 /tokens/StoredCredential
 /src/main/resources/credentials.json
 /src/main/resources/application.properties
