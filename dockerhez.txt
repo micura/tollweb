@@ -1,0 +1,3 @@
+docker run --name adatbazis -e MYSQL_ROOT_PASSWORD=FridgeWick51 -d mysql:8.0.22
+
+docker run --name adatbazis -e  MYSQL_ROOT_PASSWORD=FridgeWick51 -p 3306:3306 -d mysql:8.0.22
