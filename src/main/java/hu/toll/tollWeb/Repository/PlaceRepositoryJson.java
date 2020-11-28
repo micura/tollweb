@@ -23,8 +23,8 @@ public class PlaceRepositoryJson {
 
     public void writeJSON(Place newPlace) throws IOException {
         GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        FileWriter writer = new FileWriter("student.json");
+        Gson gson = builder.setPrettyPrinting().create();
+        FileWriter writer = new FileWriter("places.json");
         writer.write(gson.toJson(newPlace));
         writer.close();
     }
