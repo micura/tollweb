@@ -11,21 +11,24 @@ import java.util.List;
 @Repository
 public class PlaceRepositoryJson {
     public List<Place> findAll() {
+        //TODO
         return null;
     }
 
     Place findPlaceByPhoneNumber(String value) {
+        //TODO
         return null;
     }
 
     public void save(Place newPlace) {
+        //TODO
     }
 
-    public void writeJSON(Place newPlace) throws IOException {
+    public void writeJSON(List<Place> places) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
-        FileWriter writer = new FileWriter("places.json");
-        writer.write(gson.toJson(newPlace));
+        FileWriter writer = new FileWriter("phonePlaces.json");
+        writer.write(gson.toJson(places));
         writer.close();
     }
 
@@ -36,7 +39,7 @@ public class PlaceRepositoryJson {
 
         try {
             bufferedReader = new BufferedReader(
-                    new FileReader("places.json"));
+                    new FileReader("phonePlaces.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -44,12 +47,4 @@ public class PlaceRepositoryJson {
         Place place = gson.fromJson(bufferedReader, Place.class);
         return place;
     }
-
-    /*
-    @Query("SELECT p FROM Place p WHERE p.source =?1 and p.status=?2")
-    List<Place> findPlacesBySourceAndStatus(String source, String status);
-
-    @Query(value = "SELECT city FROM place WHERE status=?1", nativeQuery = true)
-    public List<String> findCitiesByStatus(String status);
-     */
 }

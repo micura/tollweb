@@ -40,4 +40,5 @@ dockerhez.txt
 /src/main/resources/credentials.json
 /src/main/resources/application.properties
 /target/**
+phonePlaces.json
 places.json

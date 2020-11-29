@@ -18,6 +18,9 @@ import java.util.Set;
 @Component("DataProcessDB")
 public class DataProcessDatabase implements DataProcess {
     @Autowired
+    PlaceService placeService;
+
+    @Autowired
     PlaceRepositoryDatabase placeRepo;
     Calendar calendar = Calendar.getInstance();
 
@@ -90,14 +93,13 @@ public class DataProcessDatabase implements DataProcess {
         }
     }
 
-    @Override
     public String save(Place place) {
         try {
-            placeRepo.save(place);
+            placeService.save(place);
             return "ok";
         }
         catch (DataIntegrityViolationException e) {
-            return "alreadyExist" ;
+            return "alreadyExist";
         }
     }
 }

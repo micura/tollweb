@@ -16,4 +16,14 @@ public class PlaceService {
     public List<String> findActiveCities(String status) {
         return placeRepo.findCitiesByStatus(status);
     }
+
+    public String save(Place place) {
+        try {
+            placeRepo.save(place);
+            return "ok";
+        }
+        catch (DataIntegrityViolationException e) {
+            return "alreadyExist";
+        }
+    }
 }

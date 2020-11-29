@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class HomeController {
     @Autowired
+    PlaceService placeService;
+    @Autowired
     @Qualifier("DataProcessDB")
     DataProcess dataProcessDB;
 
@@ -39,7 +41,7 @@ public class HomeController {
 
     @RequestMapping(value = "/saveplace", method = RequestMethod.POST)
     public RedirectView savePlace(@RequestBody Place place) throws Exception {
-        dataProcessDB.save(place);
+        placeService.save(place);
 
         //TODO Exist Contact problem
         return new RedirectView("admin");
