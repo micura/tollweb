@@ -35,6 +35,7 @@ build/
 conts
 tollfelvasarlas
 people
+places.json
 dockerhez.txt
 /tokens/StoredCredential
 /src/main/resources/credentials.json
