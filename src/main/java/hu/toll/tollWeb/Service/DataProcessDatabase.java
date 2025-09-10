@@ -33,6 +33,7 @@ public class DataProcessDatabase implements DataProcess {
                     "Aktív",
                     "Telefon"
             );
+            placeRepo.save(newPlace);
         } catch (Exception e) {
             System.out.println("Hiba történt: " + e);
         }
@@ -58,7 +59,7 @@ public class DataProcessDatabase implements DataProcess {
             if (counter == placesOnPhone.size()) {
                 System.out.println("A " + checkedContact.getName() + " kontakt törölve lett");
                 checkedContact.setStatus("Törölve");
-                placeRepo.save(checkedContact);
+                save(checkedContact);
             }
         }
     }

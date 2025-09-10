@@ -27,7 +27,7 @@ public class PlaceRepositoryJson {
     public void writeJSON(List<Place> places) throws IOException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
-        FileWriter writer = new FileWriter("phonePlaces.json");
+        FileWriter writer = new FileWriter("places.json");
         writer.write(gson.toJson(places));
         writer.close();
     }
@@ -39,7 +39,7 @@ public class PlaceRepositoryJson {
 
         try {
             bufferedReader = new BufferedReader(
-                    new FileReader("phonePlaces.json"));
+                    new FileReader("places.json"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

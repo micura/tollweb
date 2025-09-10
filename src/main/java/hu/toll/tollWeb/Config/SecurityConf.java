@@ -24,6 +24,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
             .inMemoryAuthentication()
             .passwordEncoder(passwordEncoder())
             .withUser("admin").password("$2a$10$VZxD0gqknDDuX5ZuyscX/OOBMD1YzXEzA4Le4tCLaAEouskvujBre").roles("ADMIN").and()
+            .withUser("user").password("$2y$10$oqtukZUMN1ZYzfsAVwfMue98NFGK.UrPVYSSZKkCW9mLJaOz/467m").roles("ADMIN").and()
             .withUser("milan").password("$2a$10$TTGm5LqinUrUFXn2gUNjje5CmOhFDH/8D6tcyuETm/3/3ZkDKHQxW").roles("USER").and()
             .withUser("micura2").password("$2a$10$bLy9ClDEkb3WeRduU.WPMOMmXuVsFJFLOwRwrE0wXCgnPG7wbUUG.").roles("USER");
     }

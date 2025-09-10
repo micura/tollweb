@@ -52,7 +52,6 @@ public class DataProcessJson implements DataProcess {
     public String save(List<Place> newPlace) {
         try {
             placeRepo.writeJSON(newPlace);
-
             return "ok";
         } catch (IOException e) {
             e.printStackTrace();
